@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="../Css/style.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="container">
+            <h1>To-Do List</h1>
+            <form action="/add" method="POST">
+                <input type="text" name="taskName" placeholder="Task name" required>
+                <input type="datetime-local" name="deadline" required>
+                <button type="submit">Add Task</button>
+            </form>
+            <ul>
+                <% tasks.forEach(task=> { %>
+                    <li>
+                        <span>
+                            <%= task.taskName %> - Deadline: <%= task.deadline %>
+                        </span>
+                        <form action="/delete" method="POST" style="display:inline;">
+                            <input type="hidden" name="taskName" value="<%= task.taskName %>">
+                            <button type="submit">Delete</button>
+                        </form>
+                        <form action="/edit" method="POST" style="display:inline;">
+                            <input type="hidden" name="originalTaskName" value="<%= task.taskName %>">
+                            <input type="text" name="taskName" value="<%= task.taskName %>" required>
+                            <input type="datetime-local" name="deadline" value="<%= task.deadline %>" required>
+                            <button type="submit">Edit</button>
+                        </form>
+                    </li>
+                    <% }) %>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
